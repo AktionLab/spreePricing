@@ -3,6 +3,10 @@ class Calculator::PerVariantPricing < Calculator
   def self.description
     I18n.t("per_variant_pricing")
   end
+  
+  def description
+    I18n.t("per_variant_pricing")
+  end
 
   def self.register
     super
