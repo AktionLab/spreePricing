@@ -7,6 +7,10 @@ class Calculator::PerVariantPricing < Calculator
   def description
     I18n.t("per_variant_pricing")
   end
+  
+  def has_pricing_config
+    true
+  end
 
   def self.register
     super
@@ -20,8 +24,7 @@ class Calculator::PerVariantPricing < Calculator
     item_total = object.line_items.map(&:amount).sum
     
     item_cost_price_total = object.line_items.map do |li| 
-        puts UserGroupsVariant.where (:user_group_id => object.user.user_group.id, :variant_id => li.variant_id).first.price
-        (li.variant.price * li.quantity) - UserGroupsVariant.where (:user_group_id => object.user.user_group.id, :variant_id => li.variant_id).first.price * li.quantity
+        (li.variant.price * li.quantity) - (UserGroupsVariant.where(:user_group_id => object.user.user_group.id, :variant_id => li.variant).try(:first).try(:price) || 0) * li.quantity
     end.sum
     
     0 - item_cost_price_total
