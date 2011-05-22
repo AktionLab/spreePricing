@@ -18,7 +18,7 @@
 			<%= variant_options(v) %> (<%= v.sku %>)
 		</td>
 		<td>
-			Master Price <%= variant_options(v) %> (<%= v.price %>)
+			Master Price (<%= v.price %>)
 		<td>
 			<input name="price[<%= @group.id %>][<%= v.id %>]" value="<%= ugv.price if ugv %>">
 		</td>
