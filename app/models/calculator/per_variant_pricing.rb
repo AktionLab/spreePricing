@@ -24,7 +24,7 @@ class Calculator::PerVariantPricing < Calculator
     item_total = object.line_items.map(&:amount).sum
     
     item_cost_price_total = object.line_items.map do |li| 
-        (li.variant.price * li.quantity) - (UserGroupsVariant.where(:user_group_id => object.user.user_group.id, :variant_id => li.variant).try(:first).try(:price) || 0) * li.quantity
+        (li.variant.price * li.quantity) - ((UserGroupsVariant.where(:user_group_id => object.user.user_group.id, :variant_id => li.variant).try(:first).try(:price) || li.variant.price) * li.quantity)
     end.sum
     
     0 - item_cost_price_total
