@@ -6,7 +6,7 @@
 	<% if curr_product != v.product_id%>
 	<% curr_product = v.product_id %>
 	<tr>
-		<td colspan="3">
+		<td colspan="4">
 		<h2><%= v.product.name %></h2>
 		</td>
 	</tr>
@@ -14,14 +14,10 @@
 
 	<% ugv = UserGroupsVariant.where(:user_group_id => @group).where(:variant_id => v).first%>
 	<tr>
-		<td>
-			<%= variant_options(v) %> (<%= v.sku %>)
-		</td>
-		<td>
-			Master Price (<%= v.price %>)
-		<td>
-			<input name="price[<%= @group.id %>][<%= v.id %>]" value="<%= ugv.price if ugv %>">
-		</td>
+		<td><%= v.sku %></td>
+		<td><%= variant_options(v) %></td>
+		<td>Master Price <%= v.price %></td>
+		<td><input name="price[<%= @group.id %>][<%= v.id %>]" value="<%= ugv.price if ugv %>"></td>
 	</tr>
 	<% end %>
 </table>
